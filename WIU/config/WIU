@@ -1,0 +1,129 @@
+use_xft yes
+xftfont DejaVu Sans:size=10
+xftalpha 0.8
+text_buffer_size 2048
+
+# Update interval in seconds
+update_interval 1
+
+# This is the number of times Conky will update before quitting.
+total_run_times 0
+
+own_window yes
+own_window_transparent yes
+own_window_type desktop
+
+# If own_window is yes, these window manager hints may be used
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+minimum_size 220 0
+#maximum_width 200
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+
+# Stippled borders?
+stippled_borders 0
+
+# border margins
+border_margin 5
+
+# border width
+border_width 1
+
+# Default colors and also border colors
+default_color white
+#default_shade_color black
+#default_outline_color grey
+own_window_colour 000000
+
+# Text alignment, other possible values are commented
+#alignment top_left
+alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+#alignment middle_right
+
+# Gap between borders of screen and text
+# same thing as passing -x at command line
+gap_x 20
+gap_y 50
+
+# Subtract file system buffers from used memory?
+no_buffers yes
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# number of cpu samples to average
+# set to 1 to disable averaging
+cpu_avg_samples 2
+
+# number of net samples to average
+# set to 1 to disable averaging
+net_avg_samples 2
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale yes
+
+# Add spaces to keep things from moving about? This only affects certain objects.
+use_spacer none
+
+own_window_argb_value 0
+own_window_argb_visual yes
+TEXT
+${font Zekton:Bold:size=11}SYSTEM ${hr 2}
+#Command exec cut ..  know the distribution
+${font Zekton:Bold:size=12}${alignc 0}${exec cut -d '\' -f 1 /etc/issue}
+${voffset -10}${font OpenLogos:size=40}U
+#Hostname
+${voffset -85}${alignc =10}${font Capture it:size=16}${nodename}
+#PC
+${font Zekton:Bold:size=12}${alignc 0}HP
+${font Zekton:Bold:size=12}${alignc 0}OMEN
+${font DejaVu Sans:Bold:size=13}K${font}   Kernel: ${alignr}${kernel}
+${font StyleBats:Bold:size=16}A${font} CPU 1: ${cpu cpu1}% ${alignr}${cpubar cpu1 8,60}
+${font StyleBats:Bold:size=16}A${font} CPU 2: ${cpu cpu2}% ${alignr}${cpubar cpu2 8,60}
+${font StyleBats:Bold:size=16}g${font} RAM: $mem $memperc% ${alignr}${membar 8,60}
+${font StyleBats:Bold:size=16}j${font} SWAP: $swap $swapperc% ${alignr}${swapbar 8,60}
+${font Webdings:Bold:size=16}~${font}Battery: ${battery_percent BAT0}% ${alignr}${battery_bar 8,60 BAT0}
+${font StyleBats:Bold:size=16}q${font} Uptime: ${alignr}${uptime}
+
+${font Zekton:Bold:size=11}DATE ${hr 2}
+
+${alignc 0}${font Capture it:size=32}${time %H:%M}${font Zekton:size=10}
+${voffset 2}${alignc}${time %A, %d %B %Y}
+
+${font Zekton:Bold:size=11}HD ${hr 2}
+${voffset 4}${font Pie charts for maps:Bold:size=14}7${font} ${voffset -5}Root:
+${voffset 4}${fs_used /}/${fs_size /} ${alignr}${fs_bar 8,60 /}
+${font Pie charts for maps:Bold:size=14}m${font} ${voffset -5}Home:
+${voffset 4}${fs_free /home}/${fs_size /home} ${alignr}${fs_bar 8,60 /home}
+
+${font Zekton:Bold:size=11}NETWORK ${hr 2}
+#Aquí tengo que aclarar algo mis interfaces de red son
+#Wired = enp3s0f2 and WiFi = wlan0
+${if_existing /proc/net/route enp3s0f2}
+${voffset -15}${alignc 0}${font Capture it:size=12}W i r e  d
+${font PizzaDude Bullets:size=14}O${font} Up: ${upspeed enp3s0f2}${alignr}${upspeedgraph enp3s0f2 8,60 black black}
+${voffset 4}${font PizzaDude Bullets:size=14}U${font} Down: ${downspeed enp3s0f2}${alignr}${downspeedgraph enp3s0f2 8,60 black black}
+${voffset 4}${font PizzaDude Bullets:size=14}N${font} Upload: ${alignr}${totalup enp3s0f2}
+${voffset 4}${font PizzaDude Bullets:size=14}T${font} Dowload: ${alignr}${totaldown enp3s0f2}
+${else}${if_existing /proc/net/route wlan0}${alignc 0}${font Capture it:size=12}W i F i
+${font}SSID: ${wireless_essid wlan0}
+Signal: ${wireless_link_qual_perc wlan0}% ${alignr}${wireless_link_bar 8,60 wlan0}
+${font PizzaDude Bullets:size=14}O${font} Up: ${upspeed wlan0}${alignr}${upspeedgraph wlan0 8,60 black black}
+${voffset 4}${font PizzaDude Bullets:size=14}U${font} Down: ${downspeed wlan0}${alignr}${downspeedgraph wlan0 8,60 black black}
+${voffset 4}${font PizzaDude Bullets:size=14}N${font} Upload: ${alignr}${totalup wlan0}
+${voffset 4}${font PizzaDude Bullets:size=14}T${font} Download: ${alignr}${totaldown wlan0}
+${endif}
