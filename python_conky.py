@@ -9,6 +9,10 @@ total_time = 300
 #number of points to store (ajust if you wish to use less RAM) and length of the X axis
 time_interval = 1 #in seconds
 
+your_currency = "USD" #you can put EUR for euro or other for any currency supported by kraken
+crypto_one = "XBT"
+crypto_two = "ETH"
+
 
 import json
 import requests
@@ -34,9 +38,9 @@ def krak(ticker):
 
 
 x = [i*time_interval for i in range(total_time)]
-initial = krak("XXBTZEUR")
+initial = krak("X" + crypto_one + "Z" + your_currency)
 XBT = [initial for i in range(total_time)]
-initial = krak("XETHZEUR")
+initial = krak("X" + crypto_two + "Z" + your_currency)
 ETH = [initial for i in range(total_time)]
 
 
@@ -49,14 +53,14 @@ def get_back_values(L,cur):
 
 
 def update_graph(dt):
-    get_back_values(XBT,"XXBTZEUR")
-    get_back_values(ETH,"XETHZEUR")
+    get_back_values(XBT,"X" + crypto_one + "Z" + your_currency)
+    get_back_values(ETH,"X" + crypto_two + "Z" + your_currency)
     ax1.clear()
     ax2.clear()
     ax2.set_xlabel('Time (seconds)')
     ax2.yaxis.label.set_color('black')
-    ax1.set_ylabel('XBT prices', color='g')
-    ax2.set_ylabel('ETH prices', color='r')
+    ax1.set_ylabel('XBT prices (' +your_currency+")" , color='g')
+    ax2.set_ylabel('ETH prices (' +your_currency+")", color='r')
     ax1.plot(x, XBT, 'g')
     ax2.plot(x, ETH, 'r')
 
