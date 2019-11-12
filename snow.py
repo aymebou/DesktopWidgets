@@ -12,7 +12,6 @@
 
 
 
-from commands import getoutput as getoutp
 from random import randint, uniform
 from signal import signal, SIGINT
 from sys import exit, stdout
