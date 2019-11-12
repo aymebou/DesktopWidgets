@@ -15,7 +15,7 @@
 from random import randint, uniform
 from signal import signal, SIGINT
 from sys import exit, stdout
-from Tkinter import *
+from tkinter import *
 
 def main():
     sm = SnowMachine()
@@ -31,7 +31,7 @@ class SnowMachine():
         self.root = Tk()
         self.root.wm_title("snowflakes")
         self.root.wm_attributes("-type",'desktop')
-        self.root.geometry("1919x1080+1+0")  ##Adjust with your screen size.
+        self.root.geometry("1920x1080+0+0")  ##Adjust with your screen size.
         self.root.wm_attributes("-alpha", 0.1)
 
         width = self.root.winfo_screenwidth()
@@ -46,7 +46,7 @@ class SnowMachine():
         # make snowflaks
         self.snowflakes = []
         for i in range(650 ):
-            self.snowflakes.append(snowflake(self.canv, randint(0, width), randint(0, height / 16), length=uniform(4, 8)))
+            self.snowflakes.append(snowflake(self.canv, randint(0, width), randint(0, int(height / 16)), length=uniform(4, 8)))
 
     def play(self):
         self.root.after(50, self.run)
